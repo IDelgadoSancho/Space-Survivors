@@ -6,23 +6,43 @@ public class playerMovement : MonoBehaviour
     public int facingDirection = 1;
     public Rigidbody2D rb;
     public Animator anim;
+    private InputSystem_Actions inputActions;
+    private Vector2 movement;
 
 
-    void FixedUpdate()
+
+    private void Awake()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        inputActions = new InputSystem_Actions();
+    }
 
-        anim.SetFloat("Horizontal", Mathf.Abs(horizontal));
-        anim.SetFloat("Vertical", Mathf.Abs(vertical));
+    private void OnEnable()
+    {
+        inputActions.Enable();
+    }
 
-        rb.linearVelocity = new Vector2(horizontal, vertical) * speed;
+    private void OnDisable()
+    {
+        inputActions.Disable();
+    }
 
-        if (horizontal > 0 && transform.localScale.x < 0 || horizontal < 0 && transform.localScale.x > 0 )
+    void Update()
+    {
+        movement = inputActions.Player.Move.ReadValue<Vector2>();
+
+        anim.SetFloat("Horizontal", Mathf.Abs(movement.x));
+        anim.SetFloat("Vertical", Mathf.Abs(movement.y));
+
+        if ((movement.x > 0 && transform.localScale.x < 0) ||
+            (movement.x < 0 && transform.localScale.x > 0))
         {
             Flip();
         }
+    }
 
+    void FixedUpdate()
+    {
+        rb.linearVelocity = movement * speed;
     }
 
     void Flip()
@@ -32,6 +52,6 @@ public class playerMovement : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
     }
-    
+
 
 }
