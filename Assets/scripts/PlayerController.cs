@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public class playerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
+
+    public static PlayerController Instance;
+
     public float speed = 5f;
     public int facingDirection = 1;
     public Rigidbody2D rb;
@@ -9,10 +12,16 @@ public class playerMovement : MonoBehaviour
     private InputSystem_Actions inputActions;
     private Vector2 movement;
 
-
-
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
         inputActions = new InputSystem_Actions();
     }
 
