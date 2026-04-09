@@ -12,19 +12,27 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // girar hacia el player
-        if (PlayerController.Instance.transform.position.x > transform.position.x)
+        if (PlayerController.Instance.gameObject.activeSelf == true)
         {
-            spriteRenderer.flipX = true;
+            // girar hacia el player
+            if (PlayerController.Instance.transform.position.x > transform.position.x)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+            }
+
+            // moverse hacia player
+            direction = (PlayerController.Instance.transform.position - transform.position).normalized;
+            rb.linearVelocity = new Vector2(direction.x * moveSpeed, direction.y * moveSpeed);
+
         }
         else
         {
-            spriteRenderer.flipX = false;
+            rb.linearVelocity = Vector2.zero;
         }
-
-        // moverse hacia player
-        direction = (PlayerController.Instance.transform.position - transform.position).normalized;
-        rb.linearVelocity = new Vector2(direction.x * moveSpeed, direction.y * moveSpeed);
 
     }
 
@@ -32,6 +40,7 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerController.Instance.takeDamage(10);
             Destroy(gameObject);
             Instantiate(destroyEffect, transform.position, transform.rotation);
         }

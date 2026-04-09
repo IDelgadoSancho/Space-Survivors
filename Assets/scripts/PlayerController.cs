@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     private InputSystem_Actions inputActions;
     private Vector2 movement;
 
+    public float playerMaxHealth;
+    public float playerCurrentHealth;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -33,6 +36,12 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         inputActions.Disable();
+    }
+
+    void Start()
+    {
+        playerCurrentHealth = playerMaxHealth;
+        UIController.Instance.UpdateHealthSlider();
     }
 
     void Update()
@@ -62,5 +71,18 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
     }
 
+    public void takeDamage(float damage)
+    {
+        playerCurrentHealth -= damage;
+        UIController.Instance.UpdateHealthSlider();
+
+        if (playerCurrentHealth <= 0)
+        {
+            gameObject.SetActive(false);
+            GameManager.Instance.GameOver();
+        }
+    }
+
+    
 
 }

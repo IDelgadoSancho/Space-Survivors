@@ -34,37 +34,41 @@ public class EnemySpawner : MonoBehaviour
     public BoxCollider2D spawnArea;
     public float spawnMargin = 2f; // distancia mínima fuera del viewport
 
-    void OnDrawGizmos()
-    {
-        if (spawnArea != null)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(spawnArea.bounds.center, spawnArea.bounds.size);
-        }
-    }
+    // void OnDrawGizmos()
+    // {
+    //     if (spawnArea != null)
+    //     {
+    //         Gizmos.color = Color.green;
+    //         Gizmos.DrawWireCube(spawnArea.bounds.center, spawnArea.bounds.size);
+    //     }
+    // }
+    
     void Update()
     {
-        Wave wave = waves[waveNumber];
-        wave.spawnTimer += Time.deltaTime;
-
-        if (wave.spawnTimer >= wave.spawnInterval)
+        if (PlayerController.Instance.gameObject.activeSelf == true)
         {
-            wave.spawnTimer = 0;
-            SpawnEnemy();
+            Wave wave = waves[waveNumber];
+            wave.spawnTimer += Time.deltaTime;
+
+            if (wave.spawnTimer >= wave.spawnInterval)
+            {
+                wave.spawnTimer = 0;
+                SpawnEnemy();
+            }
+
+            if (wave.spawnedEnemyCount >= wave.enemiesPerWave)
+            {
+                wave.spawnedEnemyCount = 0;
+
+                if (wave.spawnInterval > 0.3f)
+                    wave.spawnInterval *= 0.9f;
+
+                waveNumber++;
+            }
+
+            if (waveNumber >= waves.Count)
+                waveNumber = 0;
         }
-
-        if (wave.spawnedEnemyCount >= wave.enemiesPerWave)
-        {
-            wave.spawnedEnemyCount = 0;
-
-            if (wave.spawnInterval > 0.3f)
-                wave.spawnInterval *= 0.9f;
-
-            waveNumber++;
-        }
-
-        if (waveNumber >= waves.Count)
-            waveNumber = 0;
     }
 
     private void SpawnEnemy()
