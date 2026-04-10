@@ -10,6 +10,11 @@ public class UIController : MonoBehaviour
 
     public GameObject gameOverPanel;
 
+    public GameObject pausePanel;
+    public GameObject pauseButton;
+    public GameObject resumeButton;
+
+
 
     private void Awake()
     {
