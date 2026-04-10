@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         UIController.Instance.gameOverPanel.SetActive(true);
         UIController.Instance.pauseButton.SetActive(false);
-        
+
         // UIController.Instance.pauseButton.SetActive(false);
     }
 
@@ -66,6 +67,17 @@ public class GameManager : MonoBehaviour
             // UIController.Instance.resumeButton.SetActive(false);
             Time.timeScale = 1f;
         }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
     }
 
 }
