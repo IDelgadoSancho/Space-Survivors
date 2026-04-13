@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public float gameTime;
 
     private void Awake()
     {
@@ -22,6 +23,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        gameTime += Time.deltaTime;
+        UIController.Instance.UpdateTimer(gameTime);
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Pause();
