@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public float gameTime;
+    public bool gameActive;
 
     private void Awake()
     {
@@ -21,19 +22,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        gameActive = true;
+    }
+
     void Update()
     {
-        gameTime += Time.deltaTime;
-        UIController.Instance.UpdateTimer(gameTime);
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (gameActive)
         {
-            Pause();
+            gameTime += Time.deltaTime;
+            UIController.Instance.UpdateTimer(gameTime);
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Pause();
+            }
         }
+
     }
 
     public void GameOver()
     {
+        gameActive = false;
         StartCoroutine(ShowGameOverScreen());
     }
 

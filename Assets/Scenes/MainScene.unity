@@ -1626,6 +1626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gameTime: 0
+  gameActive: 0
 --- !u!4 &630391103
 Transform:
   m_ObjectHideFlags: 0
@@ -1788,6 +1789,9 @@ MonoBehaviour:
   anim: {fileID: 725967866}
   playerMaxHealth: 30
   playerCurrentHealth: 0
+  isInmunne: 0
+  inmmunityDuration: 1
+  inmmunityTimer: 0
 --- !u!50 &725967862
 Rigidbody2D:
   serializedVersion: 5

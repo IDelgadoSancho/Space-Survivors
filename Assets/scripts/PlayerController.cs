@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -14,6 +15,13 @@ public class PlayerController : MonoBehaviour
 
     public float playerMaxHealth;
     public float playerCurrentHealth;
+    public bool isInmunne;
+    [SerializeField] private float inmmunityDuration;
+    [SerializeField] private float inmmunityTimer;
+
+
+
+
 
     private void Awake()
     {
@@ -56,6 +64,16 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
+
+        if (inmmunityTimer > 0)
+        {
+            inmmunityTimer -= Time.deltaTime;
+        }
+        else
+        {
+            isInmunne = false;
+        }
+
     }
 
     void FixedUpdate()
@@ -73,16 +91,23 @@ public class PlayerController : MonoBehaviour
 
     public void takeDamage(float damage)
     {
-        playerCurrentHealth -= damage;
-        UIController.Instance.UpdateHealthSlider();
-
-        if (playerCurrentHealth <= 0)
+        if (!isInmunne)
         {
-            gameObject.SetActive(false);
-            GameManager.Instance.GameOver();
+            isInmunne = true;
+            inmmunityTimer = inmmunityDuration;
+            playerCurrentHealth -= damage;
+            UIController.Instance.UpdateHealthSlider();
+
+            if (playerCurrentHealth <= 0)
+            {
+                gameObject.SetActive(false);
+                GameManager.Instance.GameOver();
+            }
         }
     }
 
-    
+
+
+
 
 }
