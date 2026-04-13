@@ -230,6 +230,7 @@ MonoBehaviour:
   rb: {fileID: 5342601645132123322}
   moveSpeed: 0.2
   damage: 10
+  health: 50
   destroyEffect: {fileID: 7107042648125979895, guid: 54757688a40d30540a20dbe8c0ff4546, type: 3}
 --- !u!70 &5924577725224317868
 CapsuleCollider2D:

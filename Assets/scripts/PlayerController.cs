@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public Animator anim;
     private InputSystem_Actions inputActions;
-    private Vector2 movement;
+    private Vector3 movement;
 
     public float playerMaxHealth;
     public float playerCurrentHealth;
