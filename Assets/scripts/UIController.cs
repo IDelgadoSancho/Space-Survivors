@@ -9,6 +9,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text timerText;
 
+    [SerializeField] private Slider playerExpSlider;
+    [SerializeField] private TMP_Text ExpText;
+
     public GameObject gameOverPanel;
 
     public GameObject pausePanel;
@@ -33,6 +36,21 @@ public class UIController : MonoBehaviour
     {
         playerHealthSlider.maxValue = PlayerController.Instance.playerMaxHealth;
         playerHealthSlider.value = PlayerController.Instance.playerCurrentHealth;
+        // healthText.text = playerHealthSlider.value + "/" + playerHealthSlider.maxValue;
+
+    }
+
+    public void UpdateExpSlider()
+    {
+        if (playerExpSlider.value == playerExpSlider.maxValue)
+        {
+            playerExpSlider.value = 0;
+        }else
+        {
+            playerExpSlider.value = PlayerController.Instance.exp;
+        }
+
+        playerExpSlider.maxValue = PlayerController.Instance.playerLevels[PlayerController.Instance.currentLevel - 1];
         // healthText.text = playerHealthSlider.value + "/" + playerHealthSlider.maxValue;
 
     }

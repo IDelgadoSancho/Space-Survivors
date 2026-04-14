@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -8,8 +9,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float damage;
     [SerializeField] private float health;
+    [SerializeField] private float pushTime;
     [SerializeField] private GameObject destroyEffect;
+    [SerializeField] private int expToGive;
 
+    private float pushCounter;
     private Vector3 direction;
 
     void FixedUpdate()
@@ -24,6 +28,20 @@ public class EnemyController : MonoBehaviour
             else
             {
                 spriteRenderer.flipX = false;
+            }
+
+            //knockback
+            if (pushCounter > 0)
+            {
+                pushCounter -= Time.deltaTime;
+                if (moveSpeed > 0)
+                {
+                    moveSpeed = -moveSpeed;
+                }
+                if(pushCounter <= 0)
+                {
+                    moveSpeed = Mathf.Abs(moveSpeed);
+                }
             }
 
             // moverse hacia player
@@ -50,11 +68,13 @@ public class EnemyController : MonoBehaviour
     {
         health -= damage;
         DamageNumberController.Instance.CreateNumber(damage, transform.position);
-        
+        pushCounter = pushTime;
+
         if (health <= 0)
         {
             Destroy(gameObject);
             Instantiate(destroyEffect, transform.position, transform.rotation);
+            PlayerController.Instance.GetExperience(expToGive);
         }
     }
 

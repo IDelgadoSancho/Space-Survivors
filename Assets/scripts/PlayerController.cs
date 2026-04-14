@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
@@ -12,15 +13,15 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
     private InputSystem_Actions inputActions;
     private Vector3 movement;
-
     public float playerMaxHealth;
     public float playerCurrentHealth;
     public bool isInmunne;
     [SerializeField] private float inmmunityDuration;
     [SerializeField] private float inmmunityTimer;
-
-
-
+    public int exp;
+    public int currentLevel;
+    public int maxLevel;
+    public List<int> playerLevels;
 
 
     private void Awake()
@@ -48,8 +49,14 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        for (int i = playerLevels.Count; i < maxLevel; i++)
+        {
+            playerLevels.Add(Mathf.CeilToInt(playerLevels[playerLevels.Count - 1] * 1.1f + 15));
+        }
+
         playerCurrentHealth = playerMaxHealth;
         UIController.Instance.UpdateHealthSlider();
+        UIController.Instance.UpdateExpSlider();
     }
 
     void Update()
@@ -106,7 +113,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void GetExperience(int expToGet)
+    {
+        exp += expToGet;
+        UIController.Instance.UpdateExpSlider();
 
+    }
 
 
 
