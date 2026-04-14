@@ -1852,7 +1852,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 1725356505
-  m_SortingOrder: 8
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &633346890
 RectTransform:
@@ -5474,6 +5474,7 @@ MonoBehaviour:
   duration: 3
   damage: 1
   range: 0.5
+  speed: 0.5
 --- !u!1 &1728466339
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AreaWeaponController : MonoBehaviour
@@ -5,6 +6,8 @@ public class AreaWeaponController : MonoBehaviour
     public AreaWeapon weapon;
     private Vector3 targetSize;
     private float timer;
+    public List<EnemyController> enemiesinRange;
+    private float counter;
 
     void Start()
     {
@@ -29,14 +32,43 @@ public class AreaWeaponController : MonoBehaviour
                 Destroy(gameObject, weapon.duration);
             }
         }
+
+        // daño periodico
+        counter -= Time.deltaTime;
+        if (counter <= 0)
+        {
+            counter = weapon.speed;
+            foreach (EnemyController enemy in enemiesinRange)
+            {
+                enemy.TakeDamage(weapon.damage);
+            }
+        }
+
     }
 
-    private void OnTriggerStay2D(Collider2D collider)
+    // private void OnTriggerStay2D(Collider2D collider)
+    // {
+    //     if (collider.CompareTag("Enemy"))
+    //     {
+    //         EnemyController enemy = collider.GetComponent<EnemyController>();
+    //         enemy.TakeDamage(weapon.damage);
+    //     }
+    // }
+
+    private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Enemy"))
         {
-            EnemyController enemy = collider.GetComponent<EnemyController>();
-            enemy.TakeDamage(weapon.damage);
+            enemiesinRange.Add(collider.GetComponent<EnemyController>());
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Enemy"))
+        {
+            enemiesinRange.Remove(collider.GetComponent<EnemyController>());
         }
     }
 
