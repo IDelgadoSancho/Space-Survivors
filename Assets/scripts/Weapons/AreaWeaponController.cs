@@ -13,9 +13,9 @@ public class AreaWeaponController : MonoBehaviour
     {
         weapon = GameObject.Find("AreaWeapon").GetComponent<AreaWeapon>();
         // Destroy(gameObject, weapon.duration);
-        targetSize = Vector3.one * weapon.range;
+        targetSize = Vector3.one * weapon.stats[weapon.weaponLevel].range;
         transform.localScale = Vector3.zero;
-        timer = weapon.duration;
+        timer = weapon.stats[weapon.weaponLevel].duration;
     }
 
     void Update()
@@ -29,7 +29,7 @@ public class AreaWeaponController : MonoBehaviour
             targetSize = Vector3.zero;
             if (transform.localScale.x == 0f)
             {
-                Destroy(gameObject, weapon.duration);
+                Destroy(gameObject, weapon.stats[weapon.weaponLevel].duration);
             }
         }
 
@@ -37,10 +37,10 @@ public class AreaWeaponController : MonoBehaviour
         counter -= Time.deltaTime;
         if (counter <= 0)
         {
-            counter = weapon.speed;
+            counter = weapon.stats[weapon.weaponLevel].speed;
             foreach (EnemyController enemy in enemiesinRange)
             {
-                enemy.TakeDamage(weapon.damage);
+                enemy.TakeDamage(weapon.stats[weapon.weaponLevel].damage);
             }
         }
 

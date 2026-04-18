@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public int maxLevel;
     public List<int> playerLevels;
 
+    public Weapon activeWeapon;
+
 
     private void Awake()
     {
@@ -117,9 +119,21 @@ public class PlayerController : MonoBehaviour
     {
         exp += expToGet;
         UIController.Instance.UpdateExpSlider();
+        if (exp >= playerLevels[currentLevel - 1])
+        {
+            LevelUp();
+        }
 
     }
 
+    public void LevelUp()
+    {
+        exp -= playerLevels[currentLevel - 1];
+        currentLevel++;
+        UIController.Instance.UpdateExpSlider();
+        UIController.Instance.levelUpPanelOpen();
+        UIController.Instance.levelUpButtons[0].ActivateButton(activeWeapon);
+    }
 
 
 }

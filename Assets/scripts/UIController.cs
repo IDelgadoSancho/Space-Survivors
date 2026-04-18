@@ -12,8 +12,10 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider playerExpSlider;
     [SerializeField] private TMP_Text ExpText;
 
-    public GameObject gameOverPanel;
+    public LevelUpbutton[] levelUpButtons;
 
+    public GameObject gameOverPanel;
+    public GameObject levelUpPanel;
     public GameObject pausePanel;
     public GameObject pauseButton;
     public GameObject resumeButton;
@@ -41,15 +43,8 @@ public class UIController : MonoBehaviour
     }
 
     public void UpdateExpSlider()
-    {
-        if (playerExpSlider.value == playerExpSlider.maxValue)
-        {
-            playerExpSlider.value = 0;
-        }else
-        {
-            playerExpSlider.value = PlayerController.Instance.exp;
-        }
-
+    {  
+        playerExpSlider.value = PlayerController.Instance.exp;
         playerExpSlider.maxValue = PlayerController.Instance.playerLevels[PlayerController.Instance.currentLevel - 1];
         // healthText.text = playerHealthSlider.value + "/" + playerHealthSlider.maxValue;
 
@@ -61,6 +56,18 @@ public class UIController : MonoBehaviour
         float sec = Mathf.FloorToInt(timer % 60f);
 
         timerText.text = min + ":" + sec.ToString("00");
+    }
+
+    public void levelUpPanelOpen()
+    {
+        levelUpPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void levelUpPanelClose()
+    {
+        levelUpPanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 
 
