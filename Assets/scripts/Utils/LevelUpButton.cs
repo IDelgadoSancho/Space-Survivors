@@ -23,6 +23,7 @@ public class LevelUpbutton : MonoBehaviour
     {
         assignedWeapon.LevelUp();
         UIController.Instance.levelUpPanelClose();
+        AudioController.Instance.PlaySound(AudioController.Instance.click);
     }
 
 }

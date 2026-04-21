@@ -75,6 +75,7 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
             Instantiate(destroyEffect, transform.position, transform.rotation);
             PlayerController.Instance.GetExperience(expToGive);
+            AudioController.Instance.PlayModifiedSound(AudioController.Instance.enemyDie);
         }
     }
 

@@ -16,6 +16,7 @@ public class AreaWeaponController : MonoBehaviour
         targetSize = Vector3.one * weapon.stats[weapon.weaponLevel].range;
         transform.localScale = Vector3.zero;
         timer = weapon.stats[weapon.weaponLevel].duration;
+        AudioController.Instance.PlaySound(AudioController.Instance.areaWeapon);
     }
 
     void Update()
