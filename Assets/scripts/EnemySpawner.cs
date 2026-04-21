@@ -60,8 +60,8 @@ public class EnemySpawner : MonoBehaviour
             {
                 wave.spawnedEnemyCount = 0;
 
-                if (wave.spawnInterval > 0.3f)
-                    wave.spawnInterval *= 0.9f;
+                if (wave.spawnInterval > 0.15f)
+                    wave.spawnInterval *= 0.8f;
 
                 waveNumber++;
             }

@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   spriteRenderer: {fileID: 5011028204966966252}
   rb: {fileID: 6159030506656745293}
-  moveSpeed: 1
+  moveSpeed: 0.8
   damage: 10
   health: 3
   pushTime: 0.5
