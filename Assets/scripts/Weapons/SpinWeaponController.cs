@@ -19,23 +19,31 @@ public class SpinWeaponController : MonoBehaviour
     }
 
     void Update()
-    {   
+    {
+
         // rotate
         transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z + (90 * Time.deltaTime * weapon.stats[weapon.weaponLevel].speed));
         // grow
         transform.localScale = Vector3.MoveTowards(transform.localScale, targetSize, Time.deltaTime * 3);
         // shrink
         duration -= Time.deltaTime;
-        if (duration <= 0){
+        if (duration <= 0)
+        {
             targetSize = Vector3.zero;
-            if (transform.localScale.x == 0f){
+            if (transform.localScale.x == 0f)
+            {
                 //AudioController.Instance.PlaySound(AudioController.Instance.spinWeaponDespawn);
                 Destroy(gameObject);
             }
         }
+
     }
 
-    public void SetRotationOffset(float rotationOffset){
+    public void SetRotationOffset(float rotationOffset)
+    {
         transform.rotation = Quaternion.Euler(0f, 0f, rotationOffset);
     }
+
+    
+
 }

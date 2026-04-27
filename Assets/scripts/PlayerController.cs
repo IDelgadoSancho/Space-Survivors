@@ -112,9 +112,19 @@ public class PlayerController : MonoBehaviour
     void Flip()
     {
         facingDirection *= -1;
+
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+
+        foreach (Transform child in transform)
+        {
+            child.localScale = new Vector3(
+                child.localScale.x * -1,
+                child.localScale.y,
+                child.localScale.z
+            );
+        }
     }
 
     public void takeDamage(float damage)
@@ -155,17 +165,23 @@ public class PlayerController : MonoBehaviour
 
         upgradeableWeapons.Clear();
 
-        if (activeWeapons.Count > 0){
+        if (activeWeapons.Count > 0)
+        {
             upgradeableWeapons.AddRange(activeWeapons);
         }
-        if (inactiveWeapons.Count > 0){
+        if (inactiveWeapons.Count > 0)
+        {
             upgradeableWeapons.AddRange(inactiveWeapons);
         }
-        for (int i = 0; i < UIController.Instance.levelUpButtons.Length; i++){
-            if (upgradeableWeapons.ElementAtOrDefault(i) != null){
+        for (int i = 0; i < UIController.Instance.levelUpButtons.Length; i++)
+        {
+            if (upgradeableWeapons.ElementAtOrDefault(i) != null)
+            {
                 UIController.Instance.levelUpButtons[i].ActivateButton(upgradeableWeapons[i]);
                 UIController.Instance.levelUpButtons[i].gameObject.SetActive(true);
-            } else {
+            }
+            else
+            {
                 UIController.Instance.levelUpButtons[i].gameObject.SetActive(false);
             }
         }
@@ -173,19 +189,22 @@ public class PlayerController : MonoBehaviour
         UIController.Instance.levelUpPanelOpen();
     }
 
-    private void AddWeapon(int index){
+    private void AddWeapon(int index)
+    {
         activeWeapons.Add(inactiveWeapons[index]);
         inactiveWeapons[index].gameObject.SetActive(true);
         inactiveWeapons.RemoveAt(index);
     }
 
-    public void ActivateWeapon(Weapon weapon){
+    public void ActivateWeapon(Weapon weapon)
+    {
         weapon.gameObject.SetActive(true);
         activeWeapons.Add(weapon);
         inactiveWeapons.Remove(weapon);
     }
 
-    public void IncreaseMaxHealth(int value){
+    public void IncreaseMaxHealth(int value)
+    {
         playerMaxHealth += value;
         playerCurrentHealth = playerMaxHealth;
         UIController.Instance.UpdateHealthSlider();
@@ -194,7 +213,8 @@ public class PlayerController : MonoBehaviour
         AudioController.Instance.PlaySound(AudioController.Instance.click);
     }
 
-    public void IncreaseMovementSpeed(float multiplier){
+    public void IncreaseMovementSpeed(float multiplier)
+    {
         speed *= multiplier;
 
         UIController.Instance.levelUpPanelClose();

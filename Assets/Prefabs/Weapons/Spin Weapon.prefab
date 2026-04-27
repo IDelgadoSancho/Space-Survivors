@@ -209,3 +209,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2da18715776cd847adeff8bfeae9bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinWeaponController
+  projectile: {fileID: 258692753455235650}

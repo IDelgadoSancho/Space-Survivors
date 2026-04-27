@@ -59,7 +59,7 @@ public class DirectionalWeaponController : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         Transform closest = null;
-        float minDistance = Mathf.Infinity;
+        float minDistance = weapon.stats[weapon.weaponLevel].range;
 
         foreach (GameObject enemy in enemies)
         {
