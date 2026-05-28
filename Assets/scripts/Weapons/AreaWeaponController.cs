@@ -11,7 +11,7 @@ public class AreaWeaponController : MonoBehaviour
 
     void Start()
     {
-        weapon = GameObject.Find("AreaWeapon").GetComponent<AreaWeapon>();
+        weapon = GameObject.Find("Shield").GetComponent<AreaWeapon>();
         // Destroy(gameObject, weapon.duration);
         targetSize = Vector3.one * weapon.stats[weapon.weaponLevel].range;
         transform.localScale = Vector3.zero;

@@ -16,7 +16,7 @@ public class LevelUpbutton : MonoBehaviour
             weaponName.text = weapon.name;
             weaponDescription.text = weapon.stats[weapon.weaponLevel].description;
         } else {
-            weaponName.text = "NEW " + weapon.name;
+            weaponName.text = weapon.name;
             weaponDescription.text = weapon.basicDescription;
         }
 

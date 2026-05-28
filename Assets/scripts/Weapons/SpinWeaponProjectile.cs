@@ -6,7 +6,7 @@ public class SpinWeaponProjectile : MonoBehaviour
 
     void Start()
     {
-        weapon = GameObject.Find("Spin Weapon").GetComponent<SpinWeapon>();
+        weapon = GameObject.Find("Plasma Ball").GetComponent<SpinWeapon>();
     }
 
     private void OnTriggerEnter2D(Collider2D collider){

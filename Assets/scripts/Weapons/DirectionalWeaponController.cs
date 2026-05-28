@@ -10,7 +10,7 @@ public class DirectionalWeaponController : MonoBehaviour
     void Start()
     {
 
-        weapon = GameObject.Find("Directional Weapon").GetComponent<DirectionalWeapon>();
+        weapon = GameObject.Find("Laser Gun").GetComponent<DirectionalWeapon>();
         duration = weapon.stats[weapon.weaponLevel].duration;
 
         Transform target = FindClosestEnemy();

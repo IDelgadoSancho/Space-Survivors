@@ -9,7 +9,7 @@ public class SpinWeaponController : MonoBehaviour
 
     void Start()
     {
-        weapon = GameObject.Find("Spin Weapon").GetComponent<SpinWeapon>();
+        weapon = GameObject.Find("Plasma Ball").GetComponent<SpinWeapon>();
         duration = weapon.stats[weapon.weaponLevel].duration;
         //Destroy(gameObject, duration);
         targetSize = Vector3.one;

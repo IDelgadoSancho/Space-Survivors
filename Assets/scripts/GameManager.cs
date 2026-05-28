@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
+    Screen.orientation = ScreenOrientation.LandscapeRight;
+    Screen.autorotateToPortrait = false;
+    Screen.autorotateToPortraitUpsideDown = false;
+    Screen.autorotateToLandscapeRight = true;
+
         if (Instance != null && Instance != this)
         {
             Destroy(this);
