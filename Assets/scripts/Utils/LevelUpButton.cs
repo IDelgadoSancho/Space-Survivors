@@ -33,7 +33,7 @@ public class LevelUpbutton : MonoBehaviour
             PlayerController.Instance.ActivateWeapon(assignedWeapon);
         }
 
-        UIController.Instance.levelUpPanelClose();
+        UIOverlayController.Instance.CloseLevelUpPanel();
         AudioController.Instance.PlaySound(AudioController.Instance.click);
     }
 

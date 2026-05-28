@@ -5,49 +5,47 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public static UIController Instance;
-    [SerializeField] private Slider playerHealthSlider;
-    [SerializeField] private TMP_Text healthText;
+
+    [Header("Health")]
+    [SerializeField] public Slider playerHealthSlider;
+    [SerializeField] public TMP_Text healthText;
+
+    [Header("EXP")]
+    [SerializeField] public Slider playerExpSlider;
+    [SerializeField] public TMP_Text expText;
+
+    [Header("Timer")]
     [SerializeField] private TMP_Text timerText;
-
-    [SerializeField] private Slider playerExpSlider;
-    [SerializeField] private TMP_Text ExpText;
-
-    public LevelUpbutton[] levelUpButtons;
-
-    public GameObject gameOverPanel;
-    public GameObject levelUpPanel;
-    public GameObject pausePanel;
-    public GameObject pauseButton;
-    public GameObject resumeButton;
-
-
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            Instance = this;
-        }
+
+        Instance = this;
     }
 
     public void UpdateHealthSlider()
     {
         playerHealthSlider.maxValue = PlayerController.Instance.playerMaxHealth;
         playerHealthSlider.value = PlayerController.Instance.playerCurrentHealth;
-        // healthText.text = playerHealthSlider.value + "/" + playerHealthSlider.maxValue;
 
+        healthText.text = "LIFE: " + PlayerController.Instance.playerCurrentHealth;
     }
 
     public void UpdateExpSlider()
-    {  
+    {
         playerExpSlider.value = PlayerController.Instance.exp;
-        playerExpSlider.maxValue = PlayerController.Instance.playerLevels[PlayerController.Instance.currentLevel - 1];
-        // healthText.text = playerHealthSlider.value + "/" + playerHealthSlider.maxValue;
 
+        playerExpSlider.maxValue =
+            PlayerController.Instance.playerLevels[
+                PlayerController.Instance.currentLevel - 1
+            ];
+        
+        expText.text = "LVL" + PlayerController.Instance.currentLevel;
     }
 
     public void UpdateTimer(float timer)
@@ -57,19 +55,4 @@ public class UIController : MonoBehaviour
 
         timerText.text = min + ":" + sec.ToString("00");
     }
-
-    public void levelUpPanelOpen()
-    {
-        levelUpPanel.SetActive(true);
-        Time.timeScale = 0f;
-    }
-
-    public void levelUpPanelClose()
-    {
-        levelUpPanel.SetActive(false);
-        Time.timeScale = 1f;
-    }
-
-
-
 }

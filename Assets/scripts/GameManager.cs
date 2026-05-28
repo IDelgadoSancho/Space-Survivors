@@ -51,9 +51,15 @@ public class GameManager : MonoBehaviour
     IEnumerator ShowGameOverScreen()
     {
         yield return new WaitForSeconds(1.5f);
-        UIController.Instance.gameOverPanel.SetActive(true);
-        UIController.Instance.pauseButton.SetActive(false);
+        UIOverlayController.Instance.gameOverPanel.SetActive(true);
+        UIOverlayController.Instance.pauseButton.SetActive(false);
         AudioController.Instance.PlaySound(AudioController.Instance.gameOver);
+
+        UIController.Instance.playerHealthSlider.gameObject.SetActive(false);
+        UIController.Instance.healthText.gameObject.SetActive(false);
+
+        UIController.Instance.playerExpSlider.gameObject.SetActive(false);
+        UIController.Instance.expText.gameObject.SetActive(false);
 
         // UIController.Instance.pauseButton.SetActive(false);
     }
@@ -66,19 +72,19 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
-        if (UIController.Instance.pausePanel.activeSelf == false && UIController.Instance.gameOverPanel.activeSelf == false)
+        if (UIOverlayController.Instance.pausePanel.activeSelf == false && UIOverlayController.Instance.gameOverPanel.activeSelf == false)
         {
-            UIController.Instance.pausePanel.SetActive(true);
+            UIOverlayController.Instance.pausePanel.SetActive(true);
 
-            UIController.Instance.pauseButton.SetActive(false);
+            UIOverlayController.Instance.pauseButton.SetActive(false);
             // UIController.Instance.resumeButton.SetActive(true);
             Time.timeScale = 0f;
             AudioController.Instance.PlaySound(AudioController.Instance.pause);
         }
         else
         {
-            UIController.Instance.pausePanel.SetActive(false);
-            UIController.Instance.pauseButton.SetActive(true);
+            UIOverlayController.Instance.pausePanel.SetActive(false);
+            UIOverlayController.Instance.pauseButton.SetActive(true);
             // UIController.Instance.resumeButton.SetActive(false);
             Time.timeScale = 1f;
             AudioController.Instance.PlaySound(AudioController.Instance.unpause);

@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController Instance;
 
-
     // movement
     public float speed = 5f;
     public int facingDirection = 1;
@@ -160,7 +159,7 @@ public class PlayerController : MonoBehaviour
         exp -= playerLevels[currentLevel - 1];
         currentLevel++;
         UIController.Instance.UpdateExpSlider();
-        UIController.Instance.levelUpPanelOpen();
+        UIOverlayController.Instance.OpenLevelUpPanel();
         //UIController.Instance.levelUpButtons[0].ActivateButton(activeWeapon);
 
         upgradeableWeapons.Clear();
@@ -173,20 +172,20 @@ public class PlayerController : MonoBehaviour
         {
             upgradeableWeapons.AddRange(inactiveWeapons);
         }
-        for (int i = 0; i < UIController.Instance.levelUpButtons.Length; i++)
+        for (int i = 0; i < UIOverlayController.Instance.levelUpButtons.Length; i++)
         {
             if (upgradeableWeapons.ElementAtOrDefault(i) != null)
             {
-                UIController.Instance.levelUpButtons[i].ActivateButton(upgradeableWeapons[i]);
-                UIController.Instance.levelUpButtons[i].gameObject.SetActive(true);
+                UIOverlayController.Instance.levelUpButtons[i].ActivateButton(upgradeableWeapons[i]);
+                UIOverlayController.Instance.levelUpButtons[i].gameObject.SetActive(true);
             }
             else
             {
-                UIController.Instance.levelUpButtons[i].gameObject.SetActive(false);
+                UIOverlayController.Instance.levelUpButtons[i].gameObject.SetActive(false);
             }
         }
 
-        UIController.Instance.levelUpPanelOpen();
+        UIOverlayController.Instance.OpenLevelUpPanel();
     }
 
     private void AddWeapon(int index)
@@ -209,7 +208,7 @@ public class PlayerController : MonoBehaviour
         playerCurrentHealth = playerMaxHealth;
         UIController.Instance.UpdateHealthSlider();
 
-        UIController.Instance.levelUpPanelClose();
+        UIOverlayController.Instance.CloseLevelUpPanel();
         AudioController.Instance.PlaySound(AudioController.Instance.click);
     }
 
@@ -217,7 +216,7 @@ public class PlayerController : MonoBehaviour
     {
         speed *= multiplier;
 
-        UIController.Instance.levelUpPanelClose();
+        UIOverlayController.Instance.CloseLevelUpPanel();
         AudioController.Instance.PlaySound(AudioController.Instance.click);
     }
 
