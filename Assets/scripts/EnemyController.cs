@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (PlayerController.Instance.gameObject.activeSelf == true)
+        if (!PlayerController.Instance.isDead)
         {
             // girar hacia el player
             if (PlayerController.Instance.transform.position.x > transform.position.x)
@@ -76,6 +76,8 @@ public class EnemyController : MonoBehaviour
             Instantiate(destroyEffect, transform.position, transform.rotation);
             PlayerController.Instance.GetExperience(expToGive);
             AudioController.Instance.PlayModifiedSound(AudioController.Instance.enemyDie);
+
+            GameManager.Instance.enemiesKilled++;
         }
     }
 

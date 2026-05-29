@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UIOverlayController : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class UIOverlayController : MonoBehaviour
 
     [Header("Level Up")]
     public LevelUpbutton[] levelUpButtons;
+
+    [Header("Game Over UI")]
+    [SerializeField] public TMP_Text timeText;
+    [SerializeField] public TMP_Text enemiesText;
 
     private bool isPaused;
 
@@ -65,7 +70,9 @@ public class UIOverlayController : MonoBehaviour
 
     public void ShowGameOver()
     {
+
         gameOverPanel.SetActive(true);
+        
 
         PauseGame();
     }
@@ -80,5 +87,15 @@ public class UIOverlayController : MonoBehaviour
     {
         Time.timeScale = 1f;
         isPaused = false;
+    }
+
+    internal void UpdatePoints(float timer, int kills)
+    {
+
+        float min = Mathf.FloorToInt(timer / 60f);
+        float sec = Mathf.FloorToInt(timer % 60f);
+
+        timeText.text = "Time survived: " + min + ":" + sec.ToString("00");
+        enemiesText.text = "Enemies killed: " + kills;
     }
 }

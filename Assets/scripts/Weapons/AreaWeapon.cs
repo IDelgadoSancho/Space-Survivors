@@ -8,6 +8,8 @@ public class AreaWeapon : Weapon
    
    void Update()
     {    
+        if (PlayerController.Instance.isDead) return;
+        
         spawnCounter -= Time.deltaTime;
         if (spawnCounter <= 0)
         {

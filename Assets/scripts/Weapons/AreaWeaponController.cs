@@ -21,6 +21,12 @@ public class AreaWeaponController : MonoBehaviour
 
     void Update()
     {
+        if (PlayerController.Instance.isDead)
+        {
+            Destroy(gameObject, weapon.stats[weapon.weaponLevel].duration);
+            return;
+        }
+
         //grow
         transform.localScale = Vector3.MoveTowards(transform.localScale, targetSize, Time.deltaTime * 5);
         //shrink

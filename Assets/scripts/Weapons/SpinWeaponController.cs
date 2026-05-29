@@ -20,6 +20,10 @@ public class SpinWeaponController : MonoBehaviour
 
     void Update()
     {
+        if (PlayerController.Instance.isDead) {
+            Destroy(gameObject);
+            return; 
+        }
 
         // rotate
         transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z + (90 * Time.deltaTime * weapon.stats[weapon.weaponLevel].speed));
@@ -44,6 +48,6 @@ public class SpinWeaponController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, rotationOffset);
     }
 
-    
+
 
 }

@@ -9,14 +9,14 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public float gameTime;
     public bool gameActive;
+    public int enemiesKilled;
 
     private void Awake()
     {
-
-    Screen.orientation = ScreenOrientation.LandscapeRight;
-    Screen.autorotateToPortrait = false;
-    Screen.autorotateToPortraitUpsideDown = false;
-    Screen.autorotateToLandscapeRight = true;
+        Screen.orientation = ScreenOrientation.LandscapeRight;
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.autorotateToLandscapeRight = true;
 
         if (Instance != null && Instance != this)
         {
@@ -45,18 +45,23 @@ public class GameManager : MonoBehaviour
                 Pause();
             }
         }
-
     }
 
     public void GameOver()
     {
         gameActive = false;
         StartCoroutine(ShowGameOverScreen());
+
+        float time = gameTime;
+        int kills = enemiesKilled;
+
+        UIOverlayController.Instance.UpdatePoints(time, kills);
+
     }
 
     IEnumerator ShowGameOverScreen()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
         UIOverlayController.Instance.gameOverPanel.SetActive(true);
         UIOverlayController.Instance.pauseButton.SetActive(false);
         AudioController.Instance.PlaySound(AudioController.Instance.gameOver);

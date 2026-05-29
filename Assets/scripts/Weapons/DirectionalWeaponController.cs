@@ -30,6 +30,8 @@ public class DirectionalWeaponController : MonoBehaviour
 
     void Update()
     {
+        if (PlayerController.Instance.isDead) return;
+
         transform.position += direction * weapon.stats[weapon.weaponLevel].speed * Time.deltaTime;
 
         duration -= Time.deltaTime;

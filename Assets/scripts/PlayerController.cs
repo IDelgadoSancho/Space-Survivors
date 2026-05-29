@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float inmmunityDuration;
     [SerializeField] private float inmmunityTimer;
 
+    //muerte
+    public bool isDead = false;
+
     //exp
     public int exp;
     public int currentLevel;
@@ -80,6 +83,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (isDead) return;
+
         movement = inputActions.Player.Move.ReadValue<Vector2>();
 
         anim.SetFloat("Horizontal", Mathf.Abs(movement.x));
@@ -105,6 +110,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isDead) return;
         rb.linearVelocity = movement * speed;
     }
 
@@ -137,8 +143,13 @@ public class PlayerController : MonoBehaviour
 
             if (playerCurrentHealth <= 0)
             {
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+
+                isDead = true;
+                rb.linearVelocity = Vector2.zero;
+                rb.bodyType = RigidbodyType2D.Kinematic;
                 GameManager.Instance.GameOver();
+                anim.SetTrigger("Die");
             }
         }
     }
