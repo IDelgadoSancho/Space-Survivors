@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("MainScene");
+        AudioController.Instance.SetMusicVolume(1f);
         Time.timeScale = 1f;
     }
 
@@ -114,6 +115,7 @@ public class GameManager : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        AudioController.Instance.SetMusicVolume(1f);
         Time.timeScale = 1f;
     }
 
