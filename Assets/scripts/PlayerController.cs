@@ -171,6 +171,9 @@ public class PlayerController : MonoBehaviour
         currentLevel++;
         UIController.Instance.UpdateExpSlider();
         UIOverlayController.Instance.OpenLevelUpPanel();
+
+        AudioController.Instance.SetMusicVolume(0.3f);
+
         //UIController.Instance.levelUpButtons[0].ActivateButton(activeWeapon);
 
         upgradeableWeapons.Clear();

@@ -2092,6 +2092,7 @@ MonoBehaviour:
   click: {fileID: 2020853974}
   gameOver: {fileID: 1845112894}
   areaWeapon: {fileID: 1604533470}
+  audioMixer: {fileID: 24100000, guid: 8dbd2d13c1f2c444f9b1f23f7401ff72, type: 2}
 --- !u!1 &460805957
 GameObject:
   m_ObjectHideFlags: 0
@@ -3705,6 +3706,7 @@ MonoBehaviour:
   gameTime: 0
   gameActive: 0
   enemiesKilled: 0
+  music: {fileID: 1129346482}
 --- !u!4 &630391103
 Transform:
   m_ObjectHideFlags: 0

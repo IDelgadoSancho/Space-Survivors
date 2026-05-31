@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class AudioController : MonoBehaviour
     public AudioSource click;
     public AudioSource gameOver;
     public AudioSource areaWeapon;
+
+    public AudioMixer audioMixer;
 
 
     private void Awake()
@@ -35,4 +38,10 @@ public class AudioController : MonoBehaviour
         sound.Stop();
         sound.Play();
     }
+
+    public void SetMusicVolume(float volume)
+    {
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20);
+    }
+
 }

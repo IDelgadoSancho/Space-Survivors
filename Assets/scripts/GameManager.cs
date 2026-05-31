@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public float gameTime;
     public bool gameActive;
     public int enemiesKilled;
+    public AudioSource music;
 
     private void Awake()
     {
@@ -52,6 +53,8 @@ public class GameManager : MonoBehaviour
         gameActive = false;
         StartCoroutine(ShowGameOverScreen());
 
+        AudioController.Instance.SetMusicVolume(0.0f);
+
         float time = gameTime;
         int kills = enemiesKilled;
 
@@ -86,9 +89,9 @@ public class GameManager : MonoBehaviour
         if (UIOverlayController.Instance.pausePanel.activeSelf == false && UIOverlayController.Instance.gameOverPanel.activeSelf == false)
         {
             UIOverlayController.Instance.pausePanel.SetActive(true);
-
             UIOverlayController.Instance.pauseButton.SetActive(false);
             // UIController.Instance.resumeButton.SetActive(true);
+            music.Pause();
             Time.timeScale = 0f;
             AudioController.Instance.PlaySound(AudioController.Instance.pause);
         }
@@ -97,6 +100,7 @@ public class GameManager : MonoBehaviour
             UIOverlayController.Instance.pausePanel.SetActive(false);
             UIOverlayController.Instance.pauseButton.SetActive(true);
             // UIController.Instance.resumeButton.SetActive(false);
+            music.UnPause();
             Time.timeScale = 1f;
             AudioController.Instance.PlaySound(AudioController.Instance.unpause);
         }
